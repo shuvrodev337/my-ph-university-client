@@ -1,18 +1,7 @@
-import { ReactNode } from "react";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import CreateAdmin from "../pages/Admin/CreateAdmin";
 import CreateFaculty from "../pages/Admin/CreateFaculty";
 import CreateStudent from "../pages/Admin/CreateStudent";
-import { NavLink } from "react-router-dom";
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
-type TSideBarItem = {
-  key: string;
-  label: ReactNode;
-  children?: TSideBarItem[];
-};
 
 export const adminPaths = [
   {
@@ -44,6 +33,7 @@ export const adminPaths = [
 ];
 
 //Programatic way
+/*
 export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
   if (item.path && item.element) {
     acc.push({
@@ -61,6 +51,7 @@ export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
   }
   return acc;
 }, []);
+
 export const adminSidebarItems = adminPaths.reduce(
   (acc: TSideBarItem[], item) => {
     if (item.name && item.path && !item.children) {
@@ -79,12 +70,11 @@ export const adminSidebarItems = adminPaths.reduce(
         })),
       });
     }
-    console.log(acc);
     return acc;
   },
   []
 );
-
+*/
 /**
  * Here we are converting adminPaths to adminRoutes and adminSidebarItems
  * so that we can serve both purpose with the One array.
