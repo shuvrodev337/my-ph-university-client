@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./features/auth/authSlice";
+import { baseApi } from "./api/baseApi";
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [baseApi.reducerPath]: baseApi.reducer,
+    auth: authReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-/* steps: 
-1. create store + configureStore 
-2. connect store app to main.tsx
-3. create slice for corresponding feature
-4. In store reducer,  declare state with related reducer(from coresponding slice)
-*/
