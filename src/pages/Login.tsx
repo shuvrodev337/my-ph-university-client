@@ -1,6 +1,9 @@
 import { Button } from "antd";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
+import { verifyToken } from "../utils/verifyToken";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setUser } from "../redux/features/auth/authSlice";
 
 type LoginFormInputs = {
   id: string;
@@ -8,14 +11,19 @@ type LoginFormInputs = {
 };
 
 const Login = () => {
-  const [login, { isError, isLoading, isSuccess, data }] = useLoginMutation();
-
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
   const { register, handleSubmit } = useForm<LoginFormInputs>(); // 👈 Add <LoginFormInputs> here
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (userCredentials) => {
-    login(userCredentials);
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (userCredentials) => {
+    const res = await login(userCredentials).unwrap();
+    const user = verifyToken(res?.data?.accessToken);
+    const dispatchdata = { user: user, token: res.data.accessToken };
+    // console.log(dispatchdata);
+    dispatch(setUser(dispatchdata));
   };
-  console.log({ isError, isLoading, isSuccess, data });
+  console.log(user);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
