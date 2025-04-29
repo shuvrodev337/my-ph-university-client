@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useAppSelector } from "../../hooks";
 
 type TInitialState = {
   user: null | object;
@@ -14,7 +15,6 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       const { user, token } = action.payload;
-      //    console.log({ user, token });
       state.user = user;
       state.token = token;
     },
@@ -26,3 +26,6 @@ const authSlice = createSlice({
 });
 export const { setUser, logOut } = authSlice.actions;
 export default authSlice.reducer;
+export const useCurrentToken = () =>
+  useAppSelector((state) => state.auth.token);
+export const useCurrentUser = () => useAppSelector((state) => state.auth.user);

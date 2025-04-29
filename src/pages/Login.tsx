@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import { setUser } from "../redux/features/auth/authSlice";
 
 type LoginFormInputs = {
@@ -13,17 +13,19 @@ type LoginFormInputs = {
 const Login = () => {
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
-  const { register, handleSubmit } = useForm<LoginFormInputs>(); // 👈 Add <LoginFormInputs> here
-
+  const { register, handleSubmit } = useForm<LoginFormInputs>();
+  /**
+   * flow->
+   * use "useLoginMutation" hook from rtk-query to post login credential of an user,
+   * use verifyToken util function to extract user from accessToken
+   * dispatch "setUser" action to set the "auth" state.
+   * set the extracted user info as user and accessToken as token inside "auth" state
+   */
   const onSubmit: SubmitHandler<LoginFormInputs> = async (userCredentials) => {
     const res = await login(userCredentials).unwrap();
     const user = verifyToken(res?.data?.accessToken);
-    const dispatchdata = { user: user, token: res.data.accessToken };
-    // console.log(dispatchdata);
-    dispatch(setUser(dispatchdata));
+    dispatch(setUser({ user: user, token: res.data.accessToken }));
   };
-  console.log(user);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
