@@ -26,15 +26,25 @@ const Login = () => {
    */
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (userCredentials) => {
-    const toastLoginId = toast("Logging in...");
+    const toastLoginId = toast.loading("Logging in...", {
+      position: "bottom-center",
+    });
     try {
       const res = await login(userCredentials).unwrap();
       const user = verifyToken(res?.data?.accessToken) as TUser;
       dispatch(setUser({ user: user, token: res.data.accessToken }));
-      toast("Log in successful", { id: toastLoginId, duration: 2000 }); // sonner toast takes an object, where we can show all related toasts im one toast by using id
+      toast.success("Log in successful", {
+        id: toastLoginId,
+        duration: 2000,
+        position: "bottom-center",
+      }); // sonner toast takes an object, where we can show all related toasts im one toast by using id
       navigate(`/${user.role}/dashboard`);
     } catch (error) {
-      toast("Something wont wrong!!!", { id: toastLoginId, duration: 2000 });
+      toast.error("Something wont wrong!!!", {
+        id: toastLoginId,
+        duration: 2000,
+        position: "bottom-center",
+      });
       console.log(error);
     }
   };

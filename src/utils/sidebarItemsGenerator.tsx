@@ -3,13 +3,13 @@ import { TSideBarItem, TuserPath } from "../types";
 
 export const sidebarItemsGenerator = (items: TuserPath[], userRole: string) => {
   const sidebarItems = items.reduce((acc: TSideBarItem[], item) => {
-    if (item.name && item.path && !item.children) {
+    if (item.name && item.path) {
       acc.push({
         key: item.name,
         label: <NavLink to={`/${userRole}/${item.path}`}>{item.name}</NavLink>,
       });
     }
-    if (item.name && item.path && item.children) {
+    if (item.children) {
       acc.push({
         key: item.name,
         label: item.name,

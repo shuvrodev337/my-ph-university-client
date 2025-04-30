@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/authSlice";
 import { baseApi } from "./api/baseApi";
 
-// redux persist
 import {
   persistStore,
   persistReducer,
@@ -34,9 +33,7 @@ export const store = configureStore({
     }).concat(baseApi.middleware),
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
@@ -44,8 +41,7 @@ export const persistor = persistStore(store);
 /**
  * redux-persist is a library used with Redux (a state management tool for JavaScript applications) that
  * allows us to persist and rehydrate our Redux state between page reloads or app restarts.
- */
-/*
+
  ***redux persist steps***
  * create config, give a name of the config as 'key', import storage an set it as "storage"
  * create persisted Reducer, call persistReducer and pass 1st-> created config 2nd-> the reducer we want to persist
