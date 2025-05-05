@@ -5,7 +5,7 @@ import Register from "../pages/Register";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
-import FacultyDashboard from "../pages/Faulty/FacultyDashboard";
+import FacultyDashboard from "../pages/Faculty/FacultyDashboard";
 import { facultyPaths } from "./faculty.routes";
 import { studentPaths } from "./student.routes";
 import StudentDashboard from "../pages/Student/StudentDashboard";

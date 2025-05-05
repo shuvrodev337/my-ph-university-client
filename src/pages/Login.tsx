@@ -1,31 +1,27 @@
-import { Button } from "antd";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Button, Row } from "antd";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-
-type LoginFormInputs = {
-  id: string;
-  password: string;
-};
+import PHform from "../components/form/PHform";
+import PHinput from "../components/form/PHinput";
 
 const Login = () => {
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<LoginFormInputs>();
   const navigate = useNavigate();
-  /**
-   * flow->
-   * use "useLoginMutation" hook from rtk-query to post login credential of an user,
-   * use verifyToken util function to extract user from accessToken
-   * dispatch "setUser" action to set the "auth" state.
-   * set the extracted user info as "user" and accessToken as "token" inside "auth" state
-   */
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (userCredentials) => {
+  //set defaultvalues for testing purpose
+  const defaultValues = {
+    id: "A-0001",
+    password: "kichuakta",
+  };
+  const onSubmit = async (userCredentials: FieldValues) => {
+    console.log(userCredentials);
+
     const toastLoginId = toast.loading("Logging in...", {
       position: "bottom-center",
     });
@@ -37,7 +33,7 @@ const Login = () => {
         id: toastLoginId,
         duration: 2000,
         position: "bottom-center",
-      }); // sonner toast takes an object, where we can show all related toasts im one toast by using id
+      });
       navigate(`/${user.role}/dashboard`);
     } catch (error) {
       toast.error("Something wont wrong!!!", {
@@ -50,16 +46,25 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="id">Id</label>
-      <input type="text" {...register("id")} />
+    <Row justify={"center"} align={"middle"} style={{ height: "100vh" }}>
+      <PHform onSubmit={onSubmit} defaultValues={defaultValues}>
+        <PHinput type={"text"} name={"id"} label={"Id : "} />
+        <PHinput type={"text"} name={"password"} label={"Password : "} />
 
-      <label htmlFor="password">Password</label>
-      <input type="text" {...register("password")} />
-
-      <Button htmlType="submit">Submit</Button>
-    </form>
+        <Button htmlType="submit">Submit</Button>
+      </PHform>
+    </Row>
   );
 };
 
 export default Login;
+
+/**
+ * flow->
+ * use "useLoginMutation" hook from rtk-query to post login credential of an user,
+ * use verifyToken util function to extract user from accessToken
+ * dispatch "setUser" action to set the "auth" state.
+ * set the extracted user info as "user" and accessToken as "token" inside "auth" state
+ * -*-
+ * sonner toast takes an object, where we can show all related toasts im one toast by using id
+ */
