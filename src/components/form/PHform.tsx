@@ -17,7 +17,6 @@ type TFormProps = {
 
 const PHform = ({ onSubmit, children, defaultValues }: TFormProps) => {
   const formConfig: TFormConfig = {};
-
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
   }
@@ -26,7 +25,7 @@ const PHform = ({ onSubmit, children, defaultValues }: TFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}> {children}</form>;
+      <form onSubmit={methods.handleSubmit(onSubmit)}> {children}</form>
     </FormProvider>
   );
 };

@@ -35,13 +35,20 @@ const Login = () => {
         position: "bottom-center",
       });
       navigate(`/${user.role}/dashboard`);
-    } catch (error) {
-      toast.error("Something wont wrong!!!", {
-        id: toastLoginId,
-        duration: 2000,
-        position: "bottom-center",
-      });
-      console.log(error);
+    } catch (error: any) {
+      if (error?.status === 404) {
+        toast.error("User not found", {
+          id: toastLoginId,
+          duration: 2000,
+          position: "bottom-center",
+        });
+      } else {
+        toast.error("Something wont wrong!!!", {
+          id: toastLoginId,
+          duration: 2000,
+          position: "bottom-center",
+        });
+      }
     }
   };
 

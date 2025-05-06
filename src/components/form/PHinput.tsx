@@ -1,15 +1,17 @@
 import { Input } from "antd";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 type TPhInput = { type: string; name: string; label?: string };
 
 const PHinput = ({ type, name, label }: TPhInput) => {
+  const { control } = useFormContext();
   return (
     <div style={{ marginBottom: "20px" }}>
       {label ? label : null}
       <Controller
+        control={control}
         name={name} // instead of using ...register from useFormContext()
-        render={(field) => <Input {...field} type={type} id={name} />}
+        render={({ field }) => <Input {...field} type={type} id={name} />}
       />
     </div>
   );
@@ -17,6 +19,10 @@ const PHinput = ({ type, name, label }: TPhInput) => {
 
 export default PHinput;
 /**
+ *   //  console.log(name);
+  // const { register } = useFormContext();
+      <input type={type} id={name} {...register(name)} />
+
  * Controller from react-hook-form help use react-hook-form inside antd/materialUI/react-date-picker cnomponents.
  * https://react-hook-form.com/docs/usecontroller/controller
  */
