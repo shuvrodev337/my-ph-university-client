@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TPhInput = { type: string; name: string; label?: string };
@@ -7,11 +7,14 @@ const PHinput = ({ type, name, label }: TPhInput) => {
   const { control } = useFormContext();
   return (
     <div style={{ marginBottom: "20px" }}>
-      {label ? label : null}
       <Controller
         control={control}
         name={name} // instead of using ...register from useFormContext()
-        render={({ field }) => <Input {...field} type={type} id={name} />}
+        render={({ field }) => (
+          <Form.Item label={label}>
+            <Input {...field} type={type} id={name} />
+          </Form.Item>
+        )}
       />
     </div>
   );
