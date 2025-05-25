@@ -32,9 +32,12 @@ const baseQueryWithrefreshToken: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions); // have to pass thes 3 arguments as redux required
   /*
   if (result?.error?.status === 404) {
-    toast.error("Not found!", { duration: 2000, position: "bottom-center" });
+    toast.error(result?.error?.data?.message, {
+      duration: 2000,
+      position: "bottom-center",
+    });
   }
-    */
+*/
   // 401 =>  Unauthorized(accesstoken is expired)
   if (result?.error?.status === 401) {
     const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
