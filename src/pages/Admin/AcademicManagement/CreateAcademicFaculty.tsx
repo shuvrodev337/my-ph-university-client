@@ -6,7 +6,8 @@ import PHinput from "../../../components/form/PHinput";
 import { Button } from "antd";
 import { toast } from "sonner";
 import { useAddAcademicFacultyMutation } from "../../../redux/features/admin/academinManagementApi";
-import { TResponse } from "../../../types";
+import { TAcademicFaculty, TCreateResponse } from "../../../types";
+
 const CreateAcademicFaculty = () => {
   const [addAcademicFaculty] = useAddAcademicFacultyMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -14,12 +15,14 @@ const CreateAcademicFaculty = () => {
     const notificationId = toast.loading("Loading..");
 
     try {
-      const res = (await addAcademicFaculty(data)) as TResponse;
+      const res = (await addAcademicFaculty(
+        data
+      )) as TCreateResponse<TAcademicFaculty>;
       console.log({ res });
       if (res.error) {
         toast.error(res.error.data.message, { id: notificationId });
       } else {
-        toast.success(res.data.message, { id: notificationId });
+        toast.success(res?.data?.message, { id: notificationId });
       }
     } catch (error) {
       console.log(error);

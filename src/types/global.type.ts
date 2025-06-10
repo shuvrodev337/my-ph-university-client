@@ -15,13 +15,24 @@ export type TMeta = {
   totalDocuments: number;
   totalPage: number;
 };
-export type TResponse<T> = {
+export type TGetResponse<T> = {
   data?: T;
   error?: TError;
   meta?: TMeta;
   success: boolean;
 };
-export type TResonseRedux<T> = TResponse<T> & BaseQueryApi;
+export type TResonseRedux<T> = TGetResponse<T> & BaseQueryApi;
+
+export type TCreateResponse<T> = {
+  success: boolean;
+  message: string;
+  data?: {
+    data: T;
+    message: string;
+    success: boolean;
+  };
+  error?: TError;
+};
 
 export type TQueryParam = {
   name: string;

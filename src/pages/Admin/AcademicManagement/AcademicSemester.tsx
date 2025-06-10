@@ -15,6 +15,7 @@ const AcademicSemester = () => {
     isLoading,
     isFetching,
   } = useGetAcademicSemestersQuery(params);
+  console.log(semesterData);
   const columns: TableColumnsType<TableDataType> = [
     {
       title: "Name",
