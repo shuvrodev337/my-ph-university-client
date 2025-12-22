@@ -35,3 +35,13 @@ export default authSlice.reducer;
 export const useCurrentToken = () =>
   useAppSelector((state) => state.auth.token);
 export const useCurrentUser = () => useAppSelector((state) => state.auth.user);
+
+/*
+Auth flow
+1. send user credentials via login post request with useLoginMutation from auth.api.ts .
+2. get access & refresh tokens as response.
+3. set refreshtoken as cookie in browser
+4. decode access token , get user and set the user and token in the local state=> 'auth' 
+5. persist the 'auth' state
+
+*/

@@ -65,11 +65,11 @@ export const baseApi = createApi({
 
 /* custom made baseQuery(baseQueryWithrefreshToken) logic => 
  Creating a custom function(baseQueryWithrefreshToken) layer to detect access+refresh token expirity, 
- This functionchecks if any baseQuery to any auth protected route(backend)
+ This function checks if any baseQuery to any auth protected route(backend)
  gets Unauthorized error/access token expirity error.
 
  If Yes then we can 
  1.send the refresh token from the cookies to the /refresh-token route 
- 2. if refresh token is ok, set the user with user from state and accessToken as the renewed accessToken, conduct basequery again.
+ 2. if refresh token is ok, set the user with user from new accesstoken and set the accessToken as the renewed accessToken, conduct basequery again.
  3. if refresh token is also expired , the respose from '/refresh-token' will not contain accessToken, so we logout the user.
 */
