@@ -4,14 +4,17 @@ import { Controller } from "react-hook-form";
 type TPhselectProps = {
   label?: string;
   name: string;
-  options: {
-    value: string;
-    label: string;
-    disabled?: boolean;
-  }[];
+  disabled?: boolean;
+  options:
+    | {
+        value: string;
+        label: string;
+        disabled?: boolean;
+      }[]
+    | undefined;
 };
 
-const PHselect = ({ label, name, options }: TPhselectProps) => {
+const PHselect = ({ label, name, options, disabled }: TPhselectProps) => {
   /*
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -28,6 +31,7 @@ const PHselect = ({ label, name, options }: TPhselectProps) => {
             //  onChange={handleChange} //  onChange will be handled by hook form controller by   {...field}
             {...field}
             options={options}
+            disabled={disabled}
             size="large"
           />
           {error && <small style={{ color: "red" }}>{error?.message}</small>}
