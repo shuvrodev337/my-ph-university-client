@@ -72,6 +72,7 @@ const AcademicSemester = () => {
       dataIndex: "endMonth",
     },
     {
+      key: "x",
       title: "Action",
       render: () => {
         return (

@@ -1,7 +1,7 @@
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler, Controller } from "react-hook-form";
 import PHform from "../../../components/form/PHform";
 import PHinput from "../../../components/form/PHinput";
-import { Button, Col, Divider, Flex, Row } from "antd";
+import { Button, Col, Divider, Flex, Form, Input, Row } from "antd";
 import {
   useAddAcademicDepartmentMutation,
   useGetAcademicDepartmentsQuery,
@@ -36,6 +36,7 @@ const CreateStudent = () => {
     };
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data.image);
     console.log(studentData);
     addStudent(formData);
     //! for development purpose
@@ -184,6 +185,21 @@ const CreateStudent = () => {
                 type="text"
                 label="Permanent Address"
               ></PHinput>
+            </Col>
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+              <Controller
+                name="image"
+                render={({ field: { onChange, value, ...field } }) => (
+                  <Form.Item label="Picture">
+                    <Input
+                      type="file"
+                      value={value?.filename}
+                      {...field}
+                      onChange={(e) => onChange(e.target.files?.[0])}
+                    />
+                  </Form.Item>
+                )}
+              />
             </Col>
             <Divider>Guardian Info.</Divider>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
