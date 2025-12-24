@@ -3,3 +3,8 @@ export const semesterOptions = [
   { value: "02", label: "Summer" },
   { value: "03", label: "Fall" },
 ];
+export const semesterRegistrationStatusOptoipns = [
+  { value: "UPCOMING", label: "UPCOMING" },
+  { value: "ONGOING", label: "ONGOING" },
+  { value: "ENDED", label: "ENDED" },
+];

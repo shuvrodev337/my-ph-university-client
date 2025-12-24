@@ -3,11 +3,12 @@ import type { TableColumnsType, TableProps } from "antd";
 import { TQueryParam, TStudent } from "../../../types";
 import { useState } from "react";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagementApi";
+import { Link } from "react-router-dom";
 
-type TableDataType = Pick<TStudent, "fullName" | "id">;
+type TableDataType = Pick<TStudent, "fullName" | "id" | "email" | "contactNo">;
 const StudentsData = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const {
     data: studentData,
     isLoading,
@@ -27,17 +28,27 @@ const StudentsData = () => {
     },
 
     {
-      title: "Student Id",
+      title: "Id",
       dataIndex: "id",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Contact No.",
+      dataIndex: "contactNo",
     },
 
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
         return (
           <Space>
-            <Button>Details</Button>
+            <Link to={`${item.key}`}>
+              <Button>Details</Button>
+            </Link>
             <Button>Update</Button>
             <Button>Block</Button>
           </Space>
@@ -46,11 +57,15 @@ const StudentsData = () => {
       width: "1%",
     },
   ];
-  const tableData = studentData?.data?.map(({ _id, id, fullName }) => ({
-    key: _id,
-    id,
-    fullName,
-  }));
+  const tableData = studentData?.data?.map(
+    ({ _id, id, fullName, email, contactNo }) => ({
+      key: _id,
+      id,
+      fullName,
+      email,
+      contactNo,
+    })
+  );
   const onChange: TableProps<TableDataType>["onChange"] = (
     _pagination,
     filters,
