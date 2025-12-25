@@ -12,8 +12,8 @@ import { TCreateResponse } from "../../../types";
 
 const CreateCourse = () => {
   const [addCourse] = useAddCourseMutation();
-  const courses = useGetAllCoursesQuery(undefined);
-  const courseOptoins = courses?.data?.data?.map((course) => ({
+  const { data: courses } = useGetAllCoursesQuery(undefined);
+  const courseOptoins = courses?.data?.map((course) => ({
     value: course._id,
     label: `${course.prefix} ${course.title}`,
   }));
@@ -25,10 +25,12 @@ const CreateCourse = () => {
       isDeleted: false,
       code: Number(data.code),
       credits: Number(data.credits),
-      prereQuisiteCourses: data?.prereQuisiteCourses.map((item) => ({
-        course: item,
-        isDeleted: false,
-      })),
+      prereQuisiteCourses: data?.prereQuisiteCourses
+        ? data?.prereQuisiteCourses.map((item: string) => ({
+            course: item,
+            isDeleted: false,
+          }))
+        : [],
     };
     console.log(courseData);
     try {
@@ -45,18 +47,6 @@ const CreateCourse = () => {
     }
   };
 
-  //    const dummyCourse = {
-  //     prefix: "CSS",
-  //     code: 102,
-  //     title: "Cascading Style Sheet",
-  //     credits: 3,
-  //     prereQuisiteCourses: [
-  //       {
-  //         course: "678e28797ee8355fff38bb9c",
-  //         isDeleted: false,
-  //       },
-  //     ],
-  //   };
   return (
     <Flex justify="center" align="center">
       <Col span={6}>

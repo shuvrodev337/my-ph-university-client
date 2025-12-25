@@ -4,6 +4,7 @@ import {
   TAcademicSemester,
 } from "./academicManagement.type";
 
+//student
 export type TStudent = {
   _id: string;
   id: string;
@@ -50,4 +51,26 @@ export type TLocalGuardian = {
   contactNo: string;
   address: string;
   _id: string;
+};
+
+// faculty
+export type TFaculty = {
+  _id: string;
+  id: string;
+  user: string;
+  designation: string;
+  name: TName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  academicDepartment: TAcademicDepartment;
+  academicFaculty: TAcademicFaculty;
+  isDeleted: boolean;
+  fullName: string;
 };
