@@ -1,5 +1,6 @@
 import {
   TCourse,
+  TFacultiesOfCourse,
   TQueryParam,
   TRegisteredSemester,
   TResonseRedux,
@@ -86,6 +87,28 @@ export const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["courses"],
     }),
+    getFacultiesOfCourse: builder.query({
+      query: (courseId) => {
+        return {
+          url: `/courses/${courseId}/assigned-faculties`,
+          method: "GET",
+        };
+      },
+      transformResponse: (res: TResonseRedux<TFacultiesOfCourse>) => {
+        return {
+          data: res.data,
+          meta: res.meta,
+        };
+      },
+    }),
+    createOfferedCourse: builder.mutation({
+      query: (data) => ({
+        url: "/offered-courses/create-offered-course",
+        method: "POST",
+        body: data,
+      }),
+      // invalidatesTags: ["courses"],
+    }),
   }),
 });
 
@@ -96,4 +119,6 @@ export const {
   useGetAllCoursesQuery,
   useAddCourseMutation,
   useAssignFacultiesToCourseMutation,
+  useCreateOfferedCourseMutation,
+  useGetFacultiesOfCourseQuery,
 } = courseManagementApi;

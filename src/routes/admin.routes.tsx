@@ -7,6 +7,7 @@ import CreateAcademicSemester from "../pages/Admin/AcademicManagement/CreateAcad
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import Courses from "../pages/Admin/CourseManagement/Courses";
 import CreateCourse from "../pages/Admin/CourseManagement/CreateCourse";
+import CreateOfferedCourse from "../pages/Admin/CourseManagement/CreateOfferedCourse";
 import CreateSemesterRegistration from "../pages/Admin/CourseManagement/CreateSemesterRegistration";
 import RegisteredSemesters from "../pages/Admin/CourseManagement/RegisteredSemesters";
 import CreateAdmin from "../pages/Admin/UserManagement/CreateAdmin";
@@ -107,6 +108,11 @@ export const adminPaths = [
         name: "Courses",
         path: "courses",
         element: <Courses />,
+      },
+      {
+        name: "Create Offered course",
+        path: "create-offered-course",
+        element: <CreateOfferedCourse />,
       },
     ],
   },

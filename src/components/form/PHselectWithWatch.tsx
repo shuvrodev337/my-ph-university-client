@@ -7,7 +7,7 @@ type TPhselectProps = {
   name: string;
   disabled?: boolean;
   mode?: "multiple" | undefined;
-  //   onValueChange
+  onValueChange: React.Dispatch<React.SetStateAction<string>>;
   options:
     | {
         value: string;
