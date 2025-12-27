@@ -17,13 +17,18 @@ const Login = () => {
   //set defaultvalues for testing purpose
   const defaultValues = {
     id: "2025010001",
-    password: "kichuakta",
+    password: "kichuakta2",
   };
   // admin
   // {
   //   id: "A-0001",
   //   password: "kichuakta",
   // };
+  // student
+  // {
+  //   id: "2025010001",
+  //   password: "kichuakta2",
+  // }
   const onSubmit = async (userCredentials: FieldValues) => {
     const toastLoginId = toast.loading("Logging in...", {
       position: "bottom-center",
@@ -31,13 +36,18 @@ const Login = () => {
     try {
       const res = await login(userCredentials).unwrap();
       const user = verifyToken(res?.data?.accessToken) as TUser;
+
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       toast.success("Log in successful", {
         id: toastLoginId,
         duration: 2000,
         position: "bottom-center",
       });
-      navigate(`/${user.role}/dashboard`);
+      if (res?.data?.needsPasswordChange) {
+        navigate(`/change-password`);
+      } else {
+        navigate(`/${user.role}/dashboard`);
+      }
     } catch (error: any) {
       if (error?.status === 404) {
         toast.error("User not found", {

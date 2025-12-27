@@ -10,6 +10,7 @@ import { facultyPaths } from "./faculty.routes";
 import { studentPaths } from "./student.routes";
 import StudentDashboard from "../pages/Student/StudentDashboard";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
+import ChangePassword from "../pages/ChangePassword";
 
 const adminRoutes = routesGenerator(adminPaths);
 const facultyRoutes = routesGenerator(facultyPaths);
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword />,
   },
   {
     path: "/register",
