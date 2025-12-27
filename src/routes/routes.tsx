@@ -9,6 +9,7 @@ import FacultyDashboard from "../pages/Faculty/FacultyDashboard";
 import { facultyPaths } from "./faculty.routes";
 import { studentPaths } from "./student.routes";
 import StudentDashboard from "../pages/Student/StudentDashboard";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 const adminRoutes = routesGenerator(adminPaths);
 const facultyRoutes = routesGenerator(facultyPaths);
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <App />,
+    element: (
+      <ProtectedRoute role="admin">
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -32,7 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/faculty",
-    element: <App />,
+    element: (
+      <ProtectedRoute role="faculty">
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -43,7 +52,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/student",
-    element: <App />,
+    element: (
+      <ProtectedRoute role="student">
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

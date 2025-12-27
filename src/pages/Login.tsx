@@ -16,12 +16,15 @@ const Login = () => {
 
   //set defaultvalues for testing purpose
   const defaultValues = {
-    id: "A-0001",
+    id: "2025010001",
     password: "kichuakta",
   };
+  // admin
+  // {
+  //   id: "A-0001",
+  //   password: "kichuakta",
+  // };
   const onSubmit = async (userCredentials: FieldValues) => {
-    console.log(userCredentials);
-
     const toastLoginId = toast.loading("Logging in...", {
       position: "bottom-center",
     });

@@ -24,7 +24,7 @@ import PHTimePicker from "../../../components/form/PHTimePicker";
 import moment from "moment";
 
 const CreateOfferedCourse = () => {
-  const [id, setId] = useState("");
+  const [courseId, setId] = useState("");
   const [createOfferedCourse] = useCreateOfferedCourseMutation();
   const { data: registeredSemestersData } =
     useGetAllRegisterdSemestersQuery(undefined);
@@ -33,9 +33,12 @@ const CreateOfferedCourse = () => {
   const { data: academicDepartmentsData } =
     useGetAcademicDepartmentsQuery(undefined);
   const { data: courses } = useGetAllCoursesQuery(undefined);
-  const { data: assignedFacultiesData } = useGetFacultiesOfCourseQuery(id, {
-    skip: !id,
-  });
+  const { data: assignedFacultiesData } = useGetFacultiesOfCourseQuery(
+    courseId,
+    {
+      skip: !courseId,
+    }
+  );
 
   const registeredSemesterOptions = registeredSemestersData?.data?.map(
     (semester) => ({
@@ -137,7 +140,7 @@ const CreateOfferedCourse = () => {
           <PHselect
             name="faculty"
             label="Faculty"
-            disabled={!id}
+            disabled={!courseId}
             options={assignedFacultiesOptions}
           />
           <PHinput name="section" type="text" label="Section"></PHinput>

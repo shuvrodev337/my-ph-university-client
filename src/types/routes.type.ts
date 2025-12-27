@@ -7,7 +7,7 @@ export type TRoute = {
 
 // common for bot routes and sidebarItems
 export type TuserPath = {
-  name: string;
+  name?: string;
   path?: string;
   element?: ReactNode;
   children?: TuserPath[];
