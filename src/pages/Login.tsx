@@ -22,7 +22,7 @@ const Login = () => {
   // admin
   // {
   //   id: "A-0001",
-  //   password: "kichuakta",
+  //   password: "kichuakta2",
   // };
   // student
   // {
